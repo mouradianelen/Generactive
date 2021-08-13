@@ -1,8 +1,7 @@
-import Repository.ItemRepository;
-import mock.ItemMock;
-import model.BasketItem;
-import model.Item;
-import model.StockItem;
+import generactive.Repository.ItemRepository;
+import generactive.mock.ItemMock;
+import generactive.model.Item;
+import generactive.model.StockItem;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +18,12 @@ public class Main {
     @Test
     public void testCreate() {
         System.out.println("Running testCreate...");
-        List<Item> items = ItemMock.getItems(1);
-        Item item=items.get(0);
-        item.print();
+        ItemRepository repo=ItemRepository.getInstance();
+        Item item=new StockItem(1,300, "Big Car");
+        Item item2=repo.addItem(item);
 
-        int id= item.getId();
-
-        Assertions.assertTrue(id > 0);
+        assertTrue(repo.getSize()>0);
+        assertEquals(item, item2);
     }
     @Test
     public void updateItem() throws Exception{
